@@ -208,7 +208,7 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
+			<plugin><!-- this plugin must come before jacoco instrument -->
 				<groupId>se.eris</groupId>
 				<artifactId>notnull-instrumenter-maven-plugin</artifactId>
 				<version>0.6.8</version>
@@ -230,6 +230,32 @@
 						<param>org.jetbrains.annotations.NotNull</param>
 					</notNull>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.1</version>
+				<executions>
+					<execution>
+						<id>default-prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<!-- this turns off on-the-fly instrumentation, because we manually instrument so we
+								can fix the plugin order with the notnull plugin -->
+							<excludes>*</excludes>
+						</configuration>
+					</execution>
+					<!-- normally not needed to specify, but we need to make sure it comes after notnull instrument -->
+					<execution>
+						<id>instrument</id>
+						<goals>
+							<goal>instrument</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>
