@@ -274,7 +274,7 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
+			<plugin><!-- OSGI support -->
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 				<version>3.5.1</version>
