@@ -187,6 +187,7 @@
 							<show>public</show>
 							<nohelp>true</nohelp>
 							<excludePackageNames>*.internal.*,testutil,demo</excludePackageNames>
+							<quiet>true</quiet>
 						</configuration>
 					</execution>
 				</executions>
