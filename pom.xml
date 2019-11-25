@@ -209,31 +209,7 @@
 				</configuration>
 			</plugin>
 
-			<plugin><!-- this plugin must come before jacoco instrument -->
-				<groupId>se.eris</groupId>
-				<artifactId>notnull-instrumenter-maven-plugin</artifactId>
-				<version>0.6.8</version>
-				<executions>
-					<execution>
-						<id>instrument</id>
-						<goals>
-							<goal>instrument</goal>
-							<goal>tests-instrument</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<implicit>true</implicit>
-					<nullable>
-						<param>org.jetbrains.annotations.Nullable</param>
-					</nullable>
-					<notNull>
-						<param>org.jetbrains.annotations.NotNull</param>
-					</notNull>
-				</configuration>
-			</plugin>
-
-			<plugin>
+			<plugin><!-- this plugin must come before notnull instrumenter -->
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.1</version>
@@ -257,6 +233,30 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+
+			<plugin><!-- this plugin must come after jacoco instrument -->
+				<groupId>se.eris</groupId>
+				<artifactId>notnull-instrumenter-maven-plugin</artifactId>
+				<version>0.6.8</version>
+				<executions>
+					<execution>
+						<id>instrument</id>
+						<goals>
+							<goal>instrument</goal>
+							<goal>tests-instrument</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<implicit>true</implicit>
+					<nullable>
+						<param>org.jetbrains.annotations.Nullable</param>
+					</nullable>
+					<notNull>
+						<param>org.jetbrains.annotations.NotNull</param>
+					</notNull>
+				</configuration>
 			</plugin>
 
 			<plugin>
