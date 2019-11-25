@@ -186,6 +186,7 @@
 							<doclint>all,-missing</doclint>
 							<show>public</show>
 							<nohelp>true</nohelp>
+							<detectOfflineLinks>false</detectOfflineLinks>
 							<excludePackageNames>*.internal.*,testutil,demo</excludePackageNames>
 							<quiet>true</quiet>
 						</configuration>
