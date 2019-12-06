@@ -371,6 +371,23 @@
 
 	<profiles>
 		<profile>
+			<id>load-spotbugs-exclude-xml</id>
+			<activation>
+				<file><exists>spotbugs-exclude.xml</exists></file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.github.spotbugs</groupId>
+						<artifactId>spotbugs-maven-plugin</artifactId>
+						<configuration>
+							<excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
 			<id>release-sign-artifacts</id>
 			<activation>
 				<property>
