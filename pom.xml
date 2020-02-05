@@ -55,6 +55,7 @@
 		<license.owner.email>benny@bennybottema.com</license.owner.email>
 		<!-- nullability instrumenter plugin -->
 		<se.eris.notnull.instrument>true</se.eris.notnull.instrument>
+		<automaticModuleName>${project.artifactId}</automaticModuleName>
 	</properties>
 
 	<dependencies>
@@ -259,7 +260,7 @@
 						<archive>
 							<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
 							<manifestEntries>
-								<Automatic-Module-Name>${project.artifactId}</Automatic-Module-Name>
+								<Automatic-Module-Name>${automaticModuleName}</Automatic-Module-Name>
 							</manifestEntries>
 						</archive>
 					</configuration>
