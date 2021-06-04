@@ -50,11 +50,13 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
-		<!-- license plugin -->
-		<license.owner.name>Benny Bottema</license.owner.name>
-		<license.owner.email>benny@bennybottema.com</license.owner.email>
+		<!-- license plugin, see possible types here: -->
+		<!-- https://github.com/mathieucarbou/license-maven-plugin/tree/master/license-maven-plugin/src/main/resources/com/mycila/maven/plugin/license/templates -->
+		<license.type>com/mycila/maven/plugin/license/templates/APACHE-2.txt</license.type>
+		<license.owner.name>John Doe</license.owner.name>
+		<license.owner.email>johndoe@mysteryministry.com</license.owner.email>
 		<!-- nullability instrumenter plugin -->
-		<se.eris.notnull.instrument>true</se.eris.notnull.instrument>
+		<se.eris.notnull.instrument>false</se.eris.notnull.instrument>
 		<automaticModuleName>${project.artifactId}</automaticModuleName>
 	</properties>
 
@@ -298,7 +300,7 @@
 					<groupId>com.mycila</groupId>
 					<artifactId>license-maven-plugin</artifactId>
 					<configuration>
-						<header>com/mycila/maven/plugin/license/templates/APACHE-2.txt</header>
+						<header>${license.type}</header>
 						<properties>
 							<owner>${license.owner.name}</owner>
 							<email>${license.owner.email}</email>
