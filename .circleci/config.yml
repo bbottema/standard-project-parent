@@ -8,6 +8,9 @@ workflows:
     jobs:
       - github-maven-deploy/build-and-test:
           mvn-build-test-command: mvn verify -Dmaven.javadoc.skip=true
+          filters:
+            branches:
+              only: master
 
       - github-maven-deploy/deploy-patch-version:
           requires:
