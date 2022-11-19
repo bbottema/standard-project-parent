@@ -57,7 +57,6 @@
 		<license.owner.email>johndoe@mysteryministry.com</license.owner.email>
 		<!-- nullability instrumenter plugin -->
 		<se.eris.notnull.instrument>false</se.eris.notnull.instrument>
-		<automaticModuleName>${project.artifactId}</automaticModuleName>
 		<log4j.version>2.17.1</log4j.version>
 	</properties>
 
@@ -302,7 +301,7 @@
 					<archive>
 						<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
 						<manifestEntries>
-							<Automatic-Module-Name>${automaticModuleName}</Automatic-Module-Name>
+							<Automatic-Module-Name>REPLACE_WITH_AUTOMATIC_MODULE_NAME</Automatic-Module-Name>
 						</manifestEntries>
 					</archive>
 				</configuration>
@@ -389,6 +388,16 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>3.3.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
 					<version>3.1.0</version>
 				</plugin>
 				<plugin>
@@ -495,6 +504,64 @@
 										<arg>loopback</arg>
 									</gpgArguments>
 								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>fix-automatic-module-name</id>
+			<activation>
+				<file>
+					<!-- only if this is a Java project -->
+					<exists>${basedir}/src/main/java</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<!-- derive valid automatic module name from group and artifact -->
+							<execution>
+								<id>derive-automatic-module-name</id>
+								<goals>
+									<goal>regex-property</goal>
+								</goals>
+								<configuration>
+									<name>automaticModuleName</name>
+									<value>${project.groupId}.${project.artifactId}</value>
+									<regex>[^a-z0-9_.]+</regex>
+									<replacement>_</replacement>
+									<failIfNoMatch>false</failIfNoMatch>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<!-- because the property we created with build-helper-maven-plugin above isn't
+							     resolved by org.apache.felix:maven-bundle-plugin when it generates the manifest,
+							     we replace a placeholder with the property value -->
+							<execution>
+								<id>replace-automatic-module-name-in-manifest</id>
+								<phase>process-classes</phase>
+								<configuration>
+									<target>
+										<replace dir="${project.build.outputDirectory}"
+											includes="META-INF/MANIFEST.MF"
+											token="REPLACE_WITH_AUTOMATIC_MODULE_NAME"
+											value="${automaticModuleName}"/>
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
 							</execution>
 						</executions>
 					</plugin>
