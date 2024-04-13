@@ -190,6 +190,20 @@
 			</plugin>
 
 			<plugin>
+				<groupId>org.sonatype.ossindex.maven</groupId>
+				<artifactId>ossindex-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>audit-dependencies</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>audit</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-staging-maven-plugin</artifactId>
 				<extensions>true</extensions>
@@ -359,6 +373,7 @@
 				</executions>
 			</plugin>
 		</plugins>
+
 		<pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
 			<plugins>
 				<plugin>
@@ -444,6 +459,12 @@
 				<plugin>
 					<artifactId>maven-project-info-reports-plugin</artifactId>
 					<version>3.0.0</version>
+				</plugin>
+				<!-- plugin to scan for vulnerabilities -->
+				<plugin>
+					<groupId>org.sonatype.ossindex.maven</groupId>
+					<artifactId>ossindex-maven-plugin</artifactId>
+					<version>3.1.0</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
