@@ -494,7 +494,9 @@
 		<profile>
 			<id>include-dependencies</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<property>
+					<name>!excludeCommonDeps</name>
+				</property>
 			</activation>
 			<dependencies>
 
