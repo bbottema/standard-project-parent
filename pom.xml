@@ -495,7 +495,8 @@
 			<id>include-dependencies</id>
 			<activation>
 				<property>
-					<name>!excludeCommonDeps</name>
+					<name>includeCommonDeps</name>
+					<value>true</value>
 				</property>
 			</activation>
 			<dependencies>
