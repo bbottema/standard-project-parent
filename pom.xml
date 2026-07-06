@@ -17,6 +17,10 @@
 	<url>https://github.com/bbottema/standard-project-parent</url>
 	<inceptionYear>2019</inceptionYear>
 
+	<properties>
+		<bytebuddy.version>1.18.3</bytebuddy.version>
+	</properties>
+
 	<scm>
 		<connection>scm:git:git://github.com/bbottema/standard-project-parent.git</connection>
 		<developerConnection>scm:git:git@github.com:bbottema/standard-project-parent.git</developerConnection>
@@ -155,7 +159,19 @@
 			<dependency>
 				<groupId>org.assertj</groupId>
 				<artifactId>assertj-core</artifactId>
-				<version>3.22.0</version>
+				<version>3.27.7</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>net.bytebuddy</groupId>
+				<artifactId>byte-buddy</artifactId>
+				<version>${bytebuddy.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>net.bytebuddy</groupId>
+				<artifactId>byte-buddy-agent</artifactId>
+				<version>${bytebuddy.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
